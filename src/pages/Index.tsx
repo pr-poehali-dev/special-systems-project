@@ -133,7 +133,7 @@ const Index = () => {
             <h1 className="font-display text-5xl md:text-7xl font-700 leading-[1.05] uppercase tracking-tight">
               Документация по
               <br />
-              <span className="text-primary text-glow">инженерным системам</span>
+              <span className="text-primary text-glow">1С:БУХГАЛТЕРИЯ</span>
             </h1>
             <p className="mt-7 text-lg text-muted-foreground max-w-xl leading-relaxed">
               Руководства, спецификации и поддержка для проектирования,
