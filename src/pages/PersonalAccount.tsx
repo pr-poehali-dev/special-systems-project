@@ -57,6 +57,7 @@ type Ticket = {
 
 type UpdateRow = {
   client_db_id: number;
+  client_name: string;
   config_name: string;
   current_config_version: string | null;
   actual_config_version: string | null;
@@ -311,16 +312,20 @@ function DatabasesPanel({ token }: { token: string }) {
           const outdated = versionGt(row.actual_config_version, row.current_config_version);
           return (
             <div key={row.client_db_id} className={`px-4 py-3 border-b border-border/40 ${outdated ? 'bg-yellow-500/5' : ''}`}>
-              <div className="flex items-start justify-between gap-3 mb-2">
-                <div className="flex items-center gap-2">
+              <div className="flex items-start justify-between gap-3 mb-1.5">
+                <div className="flex items-center gap-2 min-w-0">
                   <Icon name="Database" size={14} className="text-muted-foreground shrink-0" />
-                  <span className="text-sm font-medium">{row.config_name}</span>
+                  <span className="text-sm font-medium truncate">{row.config_name}</span>
                 </div>
                 {outdated && (
                   <span className="flex items-center gap-1 text-xs text-yellow-400 font-medium shrink-0">
                     <Icon name="AlertTriangle" size={12} /> Устарела
                   </span>
                 )}
+              </div>
+              <div className="text-xs text-muted-foreground pl-5 mb-2 flex items-center gap-1">
+                <Icon name="Building2" size={11} className="shrink-0" />
+                <span>{row.client_name}</span>
               </div>
               <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs pl-5">
                 <div>

@@ -275,6 +275,7 @@ def handler(event: dict, context) -> dict:
         cur.execute(f"""
             SELECT
                 cd.id AS client_db_id,
+                c.name AS client_name,
                 db.config_name,
                 cd.current_config_version,
                 db.actual_config_version,
@@ -282,6 +283,7 @@ def handler(event: dict, context) -> dict:
                 au.full_name AS updated_by_name,
                 au.login AS updated_by_login
             FROM {SCHEMA}.client_databases cd
+            JOIN {SCHEMA}.clients c ON c.id = cd.client_id
             JOIN {SCHEMA}.config_databases db ON db.id = cd.config_database_id
             LEFT JOIN {SCHEMA}.update_history uh ON uh.client_database_id = cd.id
                 AND uh.id = (
@@ -291,7 +293,11 @@ def handler(event: dict, context) -> dict:
                 )
             LEFT JOIN {SCHEMA}.admin_users au ON au.id = uh.updated_by_user_id
             WHERE cd.client_id = {client_id_from_token}
-            ORDER BY db.config_name
+               OR cd.client_id IN (
+                   SELECT id FROM {SCHEMA}.clients
+                   WHERE parent_id = {client_id_from_token} AND is_active = TRUE
+               )
+            ORDER BY c.name, db.config_name
         """)
         rows = cur.fetchall()
         cur.close()
