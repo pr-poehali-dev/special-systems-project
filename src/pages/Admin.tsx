@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -1104,6 +1105,9 @@ export default function Admin() {
   const [tab, setTab] = useState<Tab>('clients');
   const [configDbs, setConfigDbs] = useState<ConfigDB[]>([]);
   const [allClients, setAllClients] = useState<{ id: number; name: string }[]>([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const fromWorkPanel = new URLSearchParams(location.search).get('from') === 'work-panel';
 
   // Проверяем сохранённый токен при загрузке
   useEffect(() => {
@@ -1135,6 +1139,7 @@ export default function Admin() {
     localStorage.removeItem(TOKEN_KEY);
     setAuthInfo(null);
     setTab('clients');
+    if (fromWorkPanel) navigate('/work-panel');
   };
 
   if (!authInfo) return <AdminLogin onLogin={handleLogin} />;

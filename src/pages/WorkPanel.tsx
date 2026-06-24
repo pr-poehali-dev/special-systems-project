@@ -771,7 +771,7 @@ export default function WorkPanel() {
               <Icon name="User" size={13} />
               <span className="hidden sm:inline">{authInfo.full_name || authInfo.login}</span>
             </div>
-            <a href="/admin" className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-all" title="Перейти в панель администратора">
+            <a href="/admin?from=work-panel" className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-all" title="Перейти в панель администратора">
               <Icon name="ShieldCheck" size={14} />
               <span className="hidden sm:inline">Админ</span>
             </a>
