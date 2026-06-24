@@ -99,8 +99,8 @@ function PublicPage() {
           </div>
           <div className="space-y-4">
             {[
-              { icon: 'Users', v: '500+', l: 'клиентов' },
-              { icon: 'Clock', v: '10 лет', l: 'на рынке' },
+              { icon: 'Users', v: '100+', l: 'клиентов' },
+              { icon: 'Clock', v: '15 лет', l: 'на рынке' },
               { icon: 'Star', v: '98%', l: 'решённых обращений' },
             ].map((s) => (
               <div
